@@ -1,0 +1,59 @@
+{
+  "name": "smart-assist",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "nuxt:build": "nuxt build",
+    "nuxt:dev": "nuxt dev",
+    "nuxt:generate": "nuxt generate",
+    "nuxt:preview": "nuxt preview",
+    "nuxt:postinstall": "nuxt prepare",
+    "electron:build": "electron-builder",
+    "electron:dev": "wait-on http://localhost:6981 && electron .",
+    "dev": "node scripts/dev.js",
+    "build": "concurrently \"nuxt build\" \"electron-builder\""
+  },
+  "dependencies": {
+    "@nuxt/eslint": "1.10.0",
+    "eslint": "^9.39.1",
+    "nuxt": "^4.2.1",
+    "vue": "^3.5.24",
+    "vue-router": "^4.6.3"
+  },
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^39.2.1",
+    "electron-builder": "^26.0.12",
+    "wait-on": "^9.0.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron"
+    ]
+  },
+  "build": {
+    "appId": "com.smart-assist.app",
+    "productName": "Smart Assist",
+    "files": [
+      "electron/**/*",
+      ".output/**/*"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    }
+  }
+}
